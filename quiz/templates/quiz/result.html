@@ -11,5 +11,13 @@
             <p>Try again to become a Quiz Master!</p>
         {% endif %}
         <a href="{% url 'home' %}" class="btn">Back to Home</a>
+	<h2>Your Score: {{ score }}%</h2>
+	<p>You answered {{ correct_answers }} out of {{ total_questions }} questions correctly.</p>
+	{% if score >= 80 %}
+		<p>Congratulations! You're a Quiz Master!</p>
+	{% else %}
+		<p>Keep practing to become a Quiz Master!</p>
+	{% endif %}
+	<a href="{% url 'home' %}" class="btn">Play Again</a>
     </div>
 {% endblock %}
