@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster Arena</title>
+    <link rel="stylesheet" href="{% static 'quiz/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <h1>QuizMaster Arena</h1>
+    </div>
+    <div class="content">
+        {% block content %}
+        <!-- Content specific to each page goes here -->
+        {% endblock %}
+    </div>
+    <div class="footer">
+        <p>Good luck, Quiz Master!</p>
+    </div>
+</body>
+</html>

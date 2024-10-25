@@ -1,0 +1,9 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+    <div class="home-container">
+        <h2>Welcome to QuizMaster Arena</h2>
+        <p>Test your knowledge and become the ultimate Quiz Master!</p>
+        <a href="{% url 'start_quiz' %}" class="btn">Start Quiz</a>
+    </div>
+{% endblock %}

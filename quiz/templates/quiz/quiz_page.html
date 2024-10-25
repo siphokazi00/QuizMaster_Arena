@@ -1,0 +1,17 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+    <div class="quiz-container">
+        <h2>{{ question.text }}</h2>
+        <div class="choices">
+            <form method="post">
+                {% csrf_token %}
+                {% for choice in question.choices %}
+                    <button type="submit" name="choice" value="{{ choice.id }}" class="choice-btn">
+                        {{ choice.choice_text }}
+                    </button>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
