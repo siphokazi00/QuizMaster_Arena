@@ -3,30 +3,44 @@
 
 {% block content %}
     <div class="quiz-container">
-        <h2>{{ question.text }}</h2>
-        <div class="choices">
-            <form method="post">
-                {% csrf_token %}
-                {% for choice in question.choices %}
-                    <button type="submit" name="choice" value="{{ choice.id }}" class="choice-btn">
-                        {{ choice.choice_text }}
-                    </button>
-                {% endfor %}
-            </form>
-	    <form method="post" action="{% url 'result_page' %}">
-                {% csrf_token %}
-                {% for question in questions %}
-                <div class="question-block">
-                    <h3>{{ question.text }}</h3>
-                    <div class="choices">
-                        {% for choice in question.choices %}
-                            <input type="radio" name="{{ question.id }}" value="{{ choice.id }}" id="{{ choice.id }}">
-                            <label for="{{ choice.id }}">{{ choice.text }}</label><br>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endfor %}
-                <button type="submit" class="btn-submit">Submit Quiz</button>
-            </form>
-	</div>
-	{% endblock %}
+	    <h2>QuizMaster Arena</h2>
+	    <div id="questions"></div>
+	    <button onclick="fetchQuiz()">Start Quiz</button>
+    </div>
+
+    <script>
+	    async function fetchQuiz() {
+		    try {
+			    const response = await fetch('/api/fetch-questions/');
+			    const questions = await response.json();
+			    displayQuestions(questions);
+		    } catch (error) {
+			    document.getElementById('questions').innerText = "Error loading quiz questions.";
+		    }
+	    }
+
+	    function displayQuestions(questions) {
+		    const questionsContainer = document.getElementById('questions');
+		    questionsContainer.innerHTML = ''; // Clear previous questions
+
+		    questions.forEach((question, index) => {
+			    const questionDiv = document.createElement('div');
+			    questionDiv.innerHTML = `
+			    <h3>Question ${index + 1}: ${question.question}</h3>
+			    ${question.answers.map((answer, i) => `
+			    <button onclick="checkAnswer(${i}, ${question.correct_answer})">${answer}</button>
+			    `).join('')}
+			    `;
+			    questionsContainer.appendChild(questionDiv);
+		    });
+	    }
+
+	    function checkAnswer(selectedAnswer, correctAnswer) {
+		    if (selectedAnswer === correctAnswer) {
+			    alert("Correct!");
+		    } else {
+			    alert("Wrong answer!");
+		    }
+	    }
+    </script>
+{% endblock %}
