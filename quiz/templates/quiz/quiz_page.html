@@ -1,46 +1,24 @@
 {% extends 'quiz/base.html' %}
 {% load static %}
-
+<script src="{% static 'js/quiz.js' %}"></script>
 {% block content %}
-    <div class="quiz-container">
-	    <h2>QuizMaster Arena</h2>
-	    <div id="questions"></div>
-	    <button onclick="fetchQuiz()">Start Quiz</button>
-    </div>
-
-    <script>
-	    async function fetchQuiz() {
-		    try {
-			    const response = await fetch('/api/fetch-questions/');
-			    const questions = await response.json();
-			    displayQuestions(questions);
-		    } catch (error) {
-			    document.getElementById('questions').innerText = "Error loading quiz questions.";
-		    }
-	    }
-
-	    function displayQuestions(questions) {
-		    const questionsContainer = document.getElementById('questions');
-		    questionsContainer.innerHTML = ''; // Clear previous questions
-
-		    questions.forEach((question, index) => {
-			    const questionDiv = document.createElement('div');
-			    questionDiv.innerHTML = `
-			    <h3>Question ${index + 1}: ${question.question}</h3>
-			    ${question.answers.map((answer, i) => `
-			    <button onclick="checkAnswer(${i}, ${question.correct_answer})">${answer}</button>
-			    `).join('')}
-			    `;
-			    questionsContainer.appendChild(questionDiv);
-		    });
-	    }
-
-	    function checkAnswer(selectedAnswer, correctAnswer) {
-		    if (selectedAnswer === correctAnswer) {
-			    alert("Correct!");
-		    } else {
-			    alert("Wrong answer!");
-		    }
-	    }
-    </script>
+    <h2>Good luck, {{ request.session.player_name }}!</h2>
+    
+    <!-- Display Questions -->
+    {% for question in questions %}
+        <div class="question-container">
+            <div class="question-text">{{ question.question.text }}</div>
+            
+            <!-- Display four answer options as buttons -->
+            <div>
+                {% for answer in question.answers|slice:":4" %}
+                    <button class="answer-button" onclick="checkAnswer(this, '{{ answer }}', '{{ question.correctAnswer }}')">
+                        {{ answer }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <p>Sorry, no questions are available at the moment.</p>
+    {% endfor %}
 {% endblock %}
