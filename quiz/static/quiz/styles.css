@@ -29,6 +29,8 @@ h2 {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+	padding-top: 25px;
+	font-size: small;
 }
 
 .content {
@@ -60,6 +62,7 @@ h2 {
 	border-radius: 8px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
+}
 
 /* Question Container Styling */
 .question-container {
@@ -77,28 +80,63 @@ h2 {
 	margin-bottom: 15px;
 }
 
-       /* Answer Button Styling */
-        .answer-button {
-            width: 100%;
-            margin: 5px 0;
-            padding: 10px;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+/* Answer Button Styling */
+.answer-button {
+	width: 100%;
+	margin: 5px 0;
+	padding: 10px;
+	font-size: 1em;
+	border: none;
+	border-radius: 5px;
+	background-color: #007bff;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
 
-        .answer-button:hover {
-            background-color: #0056b3;
-        }
+.answer-button:hover {
+	background-color: #0056b3;
+}
 
-        .answer-button.correct {
-            background-color: #28a745; /* Green for correct answers */
-        }
+.answer-button.correct {
+	background-color: #28a745; /* Green for correct answers */
+	color: #fff;
+}
 
-        .answer-button.incorrect {
-            background-color: #dc3545; /* Red for incorrect answers */
-        }
+.answer-button.incorrect {
+	background-color: #dc3545; /* Red for incorrect answers */
+	color: #fff;
+}
+
+.answer-button.disabled {
+	background-color: grey; /* Grey for disabled buttons */
+	color: #fff;
+	cursor: not-allowed;
+}
+
+#timer {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#timeout-message {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.score-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.score-container h2 {
+    font-size: 2em;
+    color: #333;
+}
+
+.score-container p {
+    font-size: 1.5em;
+    color: #0074D9;
+}
+
